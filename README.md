@@ -5,6 +5,7 @@ Junior Web Developer focused on building clean and maintainable web applications
 ### Current focus
 - Developing applications using React, TypeScript and JavaScript.
 - Building backend systems with PHP, Laravel, Django and MySQL.
+- Using modern tooling like Vite for fast development.
 - Crafting layouts with HTML5 and CSS3.
 
 ### Tech Stack
@@ -15,6 +16,7 @@ Junior Web Developer focused on building clean and maintainable web applications
 ![TypeScript](https://img.shields.io/badge/typescript-%23007acc.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
 ![Django](https://img.shields.io/badge/django-%23092e20.svg?style=for-the-badge&logo=django&logoColor=white)
