@@ -34,6 +34,11 @@ I stay curious and open to new things, whether that's a new framework, a new pro
 
 <img src="https://skillicons.dev/icons?i=html,css,js,php,laravel,cs,vite,tailwind,wordpress,mysql" />
 
+### AI Tools
+![Claude](https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=claude&logoColor=white)
+![OpenAI Codex](https://img.shields.io/badge/OpenAI%20Codex-412991?style=for-the-badge&logo=openai&logoColor=white)
+![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
+
 ### Contact
 
 <a href="mailto:romanek8888@email.cz"><img src="https://img.shields.io/badge/Email-2B46E0?style=for-the-badge&logo=gmail&logoColor=white" /></a>
@@ -45,6 +50,8 @@ I stay curious and open to new things, whether that's a new framework, a new pro
 
 <img src="https://github-readme-stats.vercel.app/api?username=RomanKaxo&show_icons=true&theme=default&hide_border=true&title_color=2B46E0&icon_color=2B46E0" height="165" />
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=RomanKaxo&theme=default&hide_border=true&ring=2B46E0&fire=2B46E0" height="165" />
+
+<img src="https://raw.githubusercontent.com/RomanKaxo/RomanKaxo/output/github-contribution-grid-snake-dark.svg" width="100%" />
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=2B46E0&height=120&section=footer" width="100%" />
 
