@@ -10,6 +10,8 @@
 
 </div>
 
+## A Little About Me
+
 #### Front End Web Developer building clean, maintainable web applications, both for employers and for my own clients.
 
 ##### I love building websites, enjoy picking up new languages and technologies, and I'm always up for starting something new.
@@ -18,9 +20,7 @@
 
 ##### I stay curious and open to new things, whether that's a new framework, a new project, or a new opportunity to learn and grow from.
 
-## Education
-- 4th-year IT student at SOŠ EDUCAnet Brno, focused on web development
-- Studying since September 2023
+##### Currently a 4th-year IT student at SOŠ EDUCAnet Brno, focused on web development, studying since September 2023.
 
 ## Current focus
 - Building and maintaining production interfaces at StanekTech.cz (HTML5, CSS3, JavaScript)
