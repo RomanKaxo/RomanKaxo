@@ -18,7 +18,7 @@ jobs:
           github_user_name: RomanKaxo
           outputs: |
             dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
+            dist/github-contribution-grid-snake-dark.svg?color_snake=2B46E0&color_dots=#161b22,#0d3f7a,#1a5cad,#2B46E0,#5a75f0
       - uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: output
