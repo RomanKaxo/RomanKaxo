@@ -36,7 +36,7 @@
 
 ### Tech Stack
 
-<img src="https://skillicons.dev/icons?i=html,css,js,php,laravel,cs,vite,tailwind,wordpress,mysql" />
+<img src="https://skillicons.dev/icons?i=html,css,js,php,laravel,cs,vite,tailwind,wordpress,mysql,sql" />
 
 ### AI Tools
 ![Claude](https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=claude&logoColor=white)
