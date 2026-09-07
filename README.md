@@ -2,11 +2,11 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=2B46E0&height=180&section=header&text=RomanKaxo&fontSize=70&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" />
 
-<br/><br/>
+<br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3000&pause=1200&color=2B46E0&center=true&vCenter=true&width=650&lines=Front+End+Web+Developer;Building+clean%2C+maintainable+web+apps;Always+learning+something+new;AI-assisted+development+enthusiast" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=3000&pause=1200&color=2B46E0&center=true&vCenter=true&width=750&lines=Front+End+Web+Developer;Building+clean%2C+maintainable+web+apps;Always+learning+something+new;AI-assisted+development+enthusiast" alt="Typing SVG" />
 
-<br/><br/>
+<br/>
 
 </div>
 
@@ -50,4 +50,8 @@
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/RomanKaxo/RomanKaxo/output/
+<img src="https://raw.githubusercontent.com/RomanKaxo/RomanKaxo/output/github-contribution-grid-snake-dark.svg" width="100%" />
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=2B46E0&height=120&section=footer" width="100%" />
+
+</div>
