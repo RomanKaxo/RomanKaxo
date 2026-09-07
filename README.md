@@ -1,4 +1,12 @@
+<div align="center">
+
 # RomanKaxo
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=3000&pause=1200&color=2B46E0&center=true&vCenter=true&width=560&lines=Front+End+Web+Developer;Building+clean%2C+maintainable+web+apps;Always+learning+something+new;AI-assisted+development+enthusiast" alt="Typing SVG" />
+
+</div>
+
+---
 
 Front End Web Developer building clean, maintainable web applications, both for employers and for my own clients.
 
@@ -17,16 +25,17 @@ I stay curious and open to new things, whether that's a new framework, a new pro
 - Managing and customizing WordPress websites
 
 ### Tech Stack
-![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/javascript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black)
-![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)
-![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)
-![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=c-sharp&logoColor=white)
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![WordPress](https://img.shields.io/badge/WordPress-%2321759b.svg?style=for-the-badge&logo=wordpress&logoColor=white)
-![MySQL](https://img.shields.io/badge/mysql-%234479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+
+<img src="https://skillicons.dev/icons?i=html,css,js,php,laravel,cs,vite,tailwind,wordpress,mysql" />
 
 ### Contact
-- Email: romanek8888@email.cz
+
+<a href="mailto:romanek8888@email.cz"><img src="https://img.shields.io/badge/Email-2B46E0?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+<a href="https://github.com/RomanKaxo"><img src="https://img.shields.io/badge/GitHub-14163C?style=for-the-badge&logo=github&logoColor=white" /></a>
+
+---
+
+<div align="center">
+<img src="https://github-readme-stats.vercel.app/api?username=RomanKaxo&show_icons=true&theme=default&hide_border=true&title_color=2B46E0&icon_color=2B46E0" height="165" />
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=RomanKaxo&theme=default&hide_border=true&ring=2B46E0&fire=2B46E0" height="165" />
+</div>
