@@ -18,6 +18,10 @@
 
 ##### I stay curious and open to new things, whether that's a new framework, a new project, or a new opportunity to learn and grow from.
 
+## Education
+- 4th-year IT student at SOŠ EDUCAnet Brno, focused on web development
+- Studying since September 2023
+
 ## Current focus
 - Building and maintaining production interfaces at StanekTech.cz (HTML5, CSS3, JavaScript)
 - Managing the website and social media for Tři Mistři
@@ -42,6 +46,10 @@
 ![Claude](https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=claude&logoColor=white)
 ![OpenAI Codex](https://img.shields.io/badge/OpenAI%20Codex-412991?style=for-the-badge&logo=openai&logoColor=white)
 ![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
+
+### Languages
+- English - B2
+- Czech - Native
 
 ### Contact
 
