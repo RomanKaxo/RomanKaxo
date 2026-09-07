@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=2B46E0&height=180&section=header&text=RomanKaxo&fontSize=50&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=2B46E0&height=180&section=header&text=RomanKaxo&fontSize=70&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" />
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=3000&pause=1200&color=2B46E0&center=true&vCenter=true&width=560&lines=Front+End+Web+Developer;Building+clean%2C+maintainable+web+apps;Always+learning+something+new;AI-assisted+development+enthusiast" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3000&pause=1200&color=2B46E0&center=true&vCenter=true&width=650&lines=Front+End+Web+Developer;Building+clean%2C+maintainable+web+apps;Always+learning+something+new;AI-assisted+development+enthusiast" alt="Typing SVG" />
 
 </div>
 
-Front End Web Developer building clean, maintainable web applications, both for employers and for my own clients.
+**Front End Web Developer building clean, maintainable web applications, both for employers and for my own clients.**
 
 I love building websites, enjoy picking up new languages and technologies, and I'm always up for starting something new.
 
@@ -14,7 +14,7 @@ I'm also really into AI tools, especially Claude Code. I use it daily and I'm ge
 
 I stay curious and open to new things, whether that's a new framework, a new project, or a new opportunity to learn and grow from.
 
-### Current focus
+## Current focus
 - Building and maintaining production interfaces at StanekTech.cz (HTML5, CSS3, JavaScript)
 - Managing the website and social media for Tři Mistři
 - Building custom client websites
@@ -22,7 +22,7 @@ I stay curious and open to new things, whether that's a new framework, a new pro
 - Picking up C# to grow toward full-stack development
 - Managing and customizing WordPress websites
 
-### Projects
+## Projects
 
 <a href="https://trimistri.cz"><img src="https://img.shields.io/badge/trimistri.cz-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
 <a href="https://washwrap.cz"><img src="https://img.shields.io/badge/washwrap.cz-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
