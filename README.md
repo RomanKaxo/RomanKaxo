@@ -46,10 +46,6 @@ I stay curious and open to new things, whether that's a new framework, a new pro
 
 <div align="center">
 
-<img src="https://github-profile-trophy.vercel.app/?username=RomanKaxo&theme=flat&no-frame=true&row=1&column=6&margin-w=8" />
-
-<img src="https://github-readme-stats.vercel.app/api?username=RomanKaxo&show_icons=true&theme=default&hide_border=true&title_color=2B46E0&icon_color=2B46E0" height="165" />
-
 <img src="https://raw.githubusercontent.com/RomanKaxo/RomanKaxo/output/github-contribution-grid-snake-dark.svg" width="100%" />
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=2B46E0&height=120&section=footer" width="100%" />
