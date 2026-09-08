@@ -36,7 +36,6 @@
 <a href="https://washwrap.cz"><img src="https://img.shields.io/badge/washwrap.cz-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
 <a href="https://brandriders.sk"><img src="https://img.shields.io/badge/brandriders.sk-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
 <a href="https://okriders.sk"><img src="https://img.shields.io/badge/okriders.sk-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
-<a href="https://sentioo.cz"><img src="https://img.shields.io/badge/sentioo.cz-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
 
 ### Tech Stack
 
