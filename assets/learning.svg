@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="224" viewBox="0 0 1200 224" role="img" aria-label="CURRENTLY LEARNING">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#07090d"/>
+      <stop offset="0.5" stop-color="#10080b"/>
+      <stop offset="1" stop-color="#07090d"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b51e29" stop-opacity="0"/>
+      <stop offset="0.15" stop-color="#b51e29" stop-opacity="0.92"/>
+      <stop offset="0.85" stop-color="#b51e29" stop-opacity="0.92"/>
+      <stop offset="1" stop-color="#b51e29" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="1198" height="222" rx="8" fill="url(#bg)" stroke="#2a1116"/>
+  <rect x="18" y="18" width="4" height="38" rx="2" fill="#f52f41"/>
+  <text x="38" y="34" fill="#f4eff0" font-family="monospace" font-size="16" font-weight="700" letter-spacing="3">CURRENTLY LEARNING</text>
+  <text x="38" y="52" fill="#9f8b90" font-family="monospace" font-size="10.5" letter-spacing="1.2">the direction I am actively pushing toward right now</text>
+  <rect x="38" y="66" width="1122" height="1" fill="url(#edge)" opacity="0.65"/>
+  <path d="M1138 26 l8 8 -8 8 -8-8z" fill="none" stroke="#8d1a24" stroke-width="1" opacity="0.9"/>
+  <circle cx="1138" cy="34" r="2.3" fill="#f02d3d"/>
+  <text x="44" y="98" fill="#f0ecec" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1.6">CURRENT TARGET</text>
+  <text x="44" y="118" fill="#d3c6c8" font-family="Arial, Helvetica, sans-serif" font-size="15">Backend and full-stack development with PHP/Laravel, databases and C#.</text>
+  <text x="44" y="150" fill="#f0ecec" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1.6">NEXT STEP</text>
+  <text x="44" y="170" fill="#d3c6c8" font-family="Arial, Helvetica, sans-serif" font-size="15">Become more confident with application logic, data flow and building beyond the interface layer.</text>
+  <text x="44" y="202" fill="#f0ecec" font-family="monospace" font-size="11" font-weight="700" letter-spacing="1.6">WHY IT MATTERS</text>
+  <text x="44" y="222" fill="#d3c6c8" font-family="Arial, Helvetica, sans-serif" font-size="15">I want to be comfortable taking a project further from idea to deployment.</text>
+</svg>
