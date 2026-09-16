@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="78" viewBox="0 0 1200 78" role="img" aria-label="CURRENT FOCUS">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1">
+      <stop offset="0" stop-color="#08090d"/>
+      <stop offset="0.55" stop-color="#12090c"/>
+      <stop offset="1" stop-color="#08090d"/>
+    </linearGradient>
+    <linearGradient id="edge" x1="0" x2="1">
+      <stop offset="0" stop-color="#ff3445" stop-opacity=".95"/>
+      <stop offset=".5" stop-color="#7d1821" stop-opacity=".55"/>
+      <stop offset="1" stop-color="#7d1821" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="2.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect x="1" y="1" width="1198" height="76" rx="8" fill="url(#bg)" stroke="#2d1118"/>
+  <rect x="20" y="13" width="4" height="52" rx="2" fill="#ff3040" filter="url(#glow)"/>
+  <rect x="38" y="61" width="500" height="1" fill="url(#edge)"/>
+  <text x="48" y="29" fill="#8e747a" font-family="monospace" font-size="11" letter-spacing="2.6">02 // STATUS</text>
+  <text x="48" y="52" fill="#f1ecee" font-family="monospace" font-size="20" font-weight="700" letter-spacing="2.8">CURRENT FOCUS</text>
+  <g transform="translate(1118 39)">
+    <circle r="16" fill="none" stroke="#4b141c"/>
+    <path d="M0,-15 L4,-4 L15,0 L4,4 L0,15 L-4,4 L-15,0 L-4,-4 Z" fill="none" stroke="#9e202b" stroke-width="1.2"/>
+    <circle r="3" fill="#ff3040"/>
+  </g>
+</svg>
