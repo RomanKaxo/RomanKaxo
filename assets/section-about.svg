@@ -15,7 +15,7 @@
   <rect x="1" y="1" width="1198" height="70" rx="7" fill="url(#bg)" stroke="#2b1117"/>
   <rect x="22" y="14" width="4" height="44" rx="2" fill="#e62e3c"/>
   <text x="46" y="31" fill="#f4f0f1" font-family="monospace" font-size="17" font-weight="700" letter-spacing="3">ABOUT</text>
-  <text x="46" y="51" fill="#9d898e" font-family="monospace" font-size="10.5" letter-spacing="1.25">Front-end development, client work & how I build</text>
+  <text x="46" y="51" fill="#9d898e" font-family="monospace" font-size="10.5" letter-spacing="1.25">Front-end development, client work &amp; how I build</text>
   <rect x="46" y="63" width="1108" height="1" fill="url(#edge)" opacity="0.65"/>
   <path d="M1134 22 l10 10 -10 10 -10-10z" fill="none" stroke="#8b1b25" stroke-width="1" opacity="0.85"/>
   <circle cx="1134" cy="32" r="2.4" fill="#ef3040"/>
