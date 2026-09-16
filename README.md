@@ -6,39 +6,92 @@
 
 <br/>
 
-### Front-End Developer building clean, maintainable web experiences.
+Building clean interfaces. Learning beyond the front end.
 
-I work on production interfaces, client websites and WordPress projects while gradually expanding toward full-stack development.
-
-`HTML` · `CSS` · `JavaScript` · `WordPress` · `PHP` · `Laravel` · `MySQL`
+FRONT-END · CLIENT WORK · WORDPRESS · FULL-STACK IN PROGRESS
 
 </div>
 
 <br/>
 
+<table>
+<tr>
+<td align="center"><strong>ROLE</strong><br/>Front-End Developer</td>
+<td align="center"><strong>FOCUS</strong><br/>Clean & maintainable web</td>
+<td align="center"><strong>LEARNING</strong><br/>PHP · Laravel · C#</td>
+<td align="center"><strong>LOCATION</strong><br/>Czech Republic</td>
+</tr>
+</table>
+
+<br/>
+
 <img src="./assets/section-about.svg" width="100%" alt="About" />
 
-I'm **Roman**, a front-end developer and IT student at **SOŠ EDUCAnet Brno**.
+WHO I AM
+Roman — front-end developer and IT student at SOŠ EDUCAnet Brno.
 
-My main focus is turning designs and ideas into websites that are **clean, responsive and easy to maintain**. I currently work with production interfaces, manage web projects for clients, and keep learning technologies that move me beyond the front end.
+WHAT I DO
+I turn designs and ideas into responsive, maintainable websites. My work ranges from production interfaces and WordPress sites to custom client projects.
 
-What matters to me most is simple: **build things properly, keep learning, and make each project better than the last one.**
+HOW I WORK
+I care about clean implementation, readable code and continuous improvement. I like understanding how things work, not just making them look finished.
+
+Current direction: moving from front-end specialization toward being able to own more of a project end-to-end.
 
 <br/>
 
 <img src="./assets/section-work.svg" width="100%" alt="Selected work" />
 
-**Tři Mistři** — website management, ongoing updates and social media  
+<table>
+<tr>
+<td width="50%">
+
+Tři Mistři
+
+Website management · updates · social media
+
+Ongoing website maintenance and content work for the brand.
+
 <a href="https://trimistri.cz"><img src="https://img.shields.io/badge/OPEN_PROJECT-B51E29?style=flat-square&logo=googlechrome&logoColor=white" alt="Tři Mistři" /></a>
 
-**Washwrap** — custom client web project  
+</td>
+<td width="50%">
+
+Washwrap
+
+Custom client website
+
+Client-focused web project built around a clean and practical user experience.
+
 <a href="https://washwrap.cz"><img src="https://img.shields.io/badge/OPEN_PROJECT-18181D?style=flat-square&logo=googlechrome&logoColor=white" alt="Washwrap" /></a>
 
-**Brandriders.sk** — client website  
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+Brandriders.sk
+
+Client website
+
+Website delivery and front-end implementation for a real-world client project.
+
 <a href="https://brandriders.sk"><img src="https://img.shields.io/badge/OPEN_PROJECT-B51E29?style=flat-square&logo=googlechrome&logoColor=white" alt="Brandriders" /></a>
 
-**OKRiders.sk** — client website  
+</td>
+<td width="50%">
+
+OKRiders.sk
+
+Client website
+
+Another production client website with a focus on clear presentation and maintainability.
+
 <a href="https://okriders.sk"><img src="https://img.shields.io/badge/OPEN_PROJECT-18181D?style=flat-square&logo=googlechrome&logoColor=white" alt="OKRiders" /></a>
+
+</td>
+</tr>
+</table>
 
 <br/>
 
@@ -50,31 +103,58 @@ What matters to me most is simple: **build things properly, keep learning, and m
 
 </div>
 
-**Core**  
-`HTML5` · `CSS3` · `JavaScript` · `WordPress` · `Git`
+<br/>
 
-**Also working with**  
-`PHP` · `Laravel` · `MySQL` · `Vite` · `Tailwind CSS`
+<table>
+<tr>
+<td width="50%">
+
+CORE LOADOUT
+
+HTML5 · CSS3 · JavaScript · WordPress · Git
+
+Used regularly for production interfaces, websites and client work.
+
+</td>
+<td width="50%">
+
+EXPANDING STACK
+
+PHP · Laravel · MySQL · Vite · Tailwind CSS · C#
+
+Technologies I'm actively using, learning or integrating into broader projects.
+
+</td>
+</tr>
+</table>
 
 <br/>
 
 <img src="./assets/section-learning.svg" width="100%" alt="Currently learning" />
 
-Right now I'm pushing further into **backend and full-stack development** — mainly PHP/Laravel, databases and C#.
+CURRENT TARGET Backend & full-stack development
 
-I want to be comfortable owning more of a project end-to-end instead of stopping at the interface layer.
+Right now I'm going deeper into PHP/Laravel, databases and C# so I can move beyond interface-only work and understand the full application flow.
+
+Build stronger backend fundamentals
+
+Work more confidently with databases and application logic
+
+Become comfortable taking a project from interface to deployment
 
 <br/>
 
 <img src="./assets/section-ai.svg" width="100%" alt="AI workflow" />
 
-AI is part of my day-to-day development workflow for **research, debugging, refactoring and faster iteration**. I use it as a development tool, not a replacement for understanding the code I ship.
+WORKFLOW BOOST AI-assisted development
+
+I use AI as part of my daily workflow for research, debugging, refactoring, code review and faster iteration — as a tool to improve the process, not as a replacement for understanding what I ship.
 
 <div align="center">
 
-![Claude](https://img.shields.io/badge/CLAUDE-18181D?style=for-the-badge&logo=claude&logoColor=white)
-![OpenAI Codex](https://img.shields.io/badge/OPENAI_CODEX-B51E29?style=for-the-badge&logo=openai&logoColor=white)
-![Gemini CLI](https://img.shields.io/badge/GEMINI_CLI-18181D?style=for-the-badge&logo=googlegemini&logoColor=white)
+
+
+
 
 </div>
 
@@ -84,7 +164,11 @@ AI is part of my day-to-day development workflow for **research, debugging, refa
 
 <div align="center">
 
-**Czech** — Native &nbsp;&nbsp;·&nbsp;&nbsp; **English** — B2
+CZECH Native   ·   ENGLISH B2
+
+<br/>
+
+Open to interesting web projects, collaborations and opportunities to keep growing.
 
 <br/>
 
