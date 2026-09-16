@@ -1,64 +1,113 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=2B46E0&height=180&section=header&text=RomanKaxo&fontSize=70&fontColor=ffffff&animation=fadeIn&fontAlignY=40" width="100%" />
+<img src="./assets/roman-hero.png" alt="RomanKaxo — Front-End Developer" width="100%" />
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=30&duration=3000&pause=1200&color=2B46E0&center=true&vCenter=true&width=750&lines=Front+End+Web+Developer;Building+clean%2C+maintainable+web+apps;Always+learning+something+new;AI-assisted+development+enthusiast" alt="Typing SVG" />
-
-<br/>
+<img src="./assets/status.svg" alt="Devil Trigger ready — build status active" width="100%" />
 
 </div>
 
-## A Little About Me
+## `// MISSION BRIEFING`
 
-#### Front End Web Developer building clean, maintainable web applications, both for employers and for my own clients.
+I'm **Roman**, a Front-End Web Developer focused on building clean, maintainable web experiences for employers and independent clients.
 
-##### I love building websites, enjoy picking up new languages and technologies, and I'm always up for starting something new.
+I enjoy turning ideas into working websites, learning new technologies, and gradually expanding from front-end development toward a broader full-stack skill set.
 
-##### I'm also really into AI tools, especially Claude Code. I use it daily and I'm genuinely interested in where AI-assisted development is heading.
+I'm also interested in **AI-assisted development** and use modern AI tools as part of my everyday workflow.
 
-##### I stay curious and open to new things, whether that's a new framework, a new project, or a new opportunity to learn and grow from.
+Currently studying IT at **SOŠ EDUCAnet Brno**, with a focus on web development.
 
-##### Currently a 4th-year IT student at SOŠ EDUCAnet Brno, focused on web development, studying since September 2023.
+<img src="./assets/divider.svg" width="100%" alt="" />
 
-## Current focus
-- Building and maintaining production interfaces at StanekTech.cz (HTML5, CSS3, JavaScript)
-- Managing the website and social media for Tři Mistři
-- Building custom client websites
-- Learning backend development with PHP, Laravel and MySQL
-- Picking up C# to grow toward full-stack development
-- Managing and customizing WordPress websites
+## `// CURRENT MISSION`
 
-## Projects
+- Building and maintaining production interfaces at **StanekTech.cz** using HTML5, CSS3 and JavaScript
+- Managing the website and social media for **Tři Mistři**
+- Building custom websites for clients
+- Learning backend development with **PHP, Laravel and MySQL**
+- Learning **C#** to move further toward full-stack development
+- Managing and customizing **WordPress** websites
 
-<a href="https://trimistri.cz"><img src="https://img.shields.io/badge/trimistri.cz-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
-<a href="https://washwrap.cz"><img src="https://img.shields.io/badge/washwrap.cz-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
-<a href="https://brandriders.sk"><img src="https://img.shields.io/badge/brandriders.sk-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
-<a href="https://okriders.sk"><img src="https://img.shields.io/badge/okriders.sk-2B46E0?style=for-the-badge&logo=googlechrome&logoColor=white" /></a>
+<img src="./assets/divider.svg" width="100%" alt="" />
 
-### Tech Stack
+## `// ACTIVE CONTRACTS`
 
-<img src="https://skillicons.dev/icons?i=html,css,js,php,laravel,cs,vite,tailwind,wordpress,mysql,sql" />
+<div align="center">
 
-### AI Tools
+<a href="https://trimistri.cz">
+  <img src="https://img.shields.io/badge/trimistri.cz-B51E29?style=for-the-badge&logo=googlechrome&logoColor=white" alt="trimistri.cz" />
+</a>
+<a href="https://washwrap.cz">
+  <img src="https://img.shields.io/badge/washwrap.cz-1A1A1F?style=for-the-badge&logo=googlechrome&logoColor=white" alt="washwrap.cz" />
+</a>
+<a href="https://brandriders.sk">
+  <img src="https://img.shields.io/badge/brandriders.sk-B51E29?style=for-the-badge&logo=googlechrome&logoColor=white" alt="brandriders.sk" />
+</a>
+<a href="https://okriders.sk">
+  <img src="https://img.shields.io/badge/okriders.sk-1A1A1F?style=for-the-badge&logo=googlechrome&logoColor=white" alt="okriders.sk" />
+</a>
+
+</div>
+
+<img src="./assets/divider.svg" width="100%" alt="" />
+
+## `// ARSENAL`
+
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=html,css,js,php,laravel,cs,vite,tailwind,wordpress,mysql,git,github&perline=12" alt="Tech stack" />
+
+</div>
+
+### Main loadout
+`HTML5` · `CSS3` · `JavaScript` · `WordPress`
+
+### Expanding the arsenal
+`PHP` · `Laravel` · `MySQL` · `C#` · `Tailwind CSS`
+
+<img src="./assets/divider.svg" width="100%" alt="" />
+
+## `// AI LOADOUT`
+
+<div align="center">
+
 ![Claude](https://img.shields.io/badge/Claude-D97757?style=for-the-badge&logo=claude&logoColor=white)
 ![OpenAI Codex](https://img.shields.io/badge/OpenAI%20Codex-412991?style=for-the-badge&logo=openai&logoColor=white)
 ![Gemini CLI](https://img.shields.io/badge/Gemini%20CLI-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
 
-### Languages
-- English - B2
-- Czech - Native
+</div>
 
-### Contact
+<img src="./assets/divider.svg" width="100%" alt="" />
 
-<a href="mailto:romanek8888@email.cz"><img src="https://img.shields.io/badge/Email-2B46E0?style=for-the-badge&logo=gmail&logoColor=white" /></a>
-<a href="https://github.com/RomanKaxo"><img src="https://img.shields.io/badge/GitHub-14163C?style=for-the-badge&logo=github&logoColor=white" /></a>
+## `// LANGUAGE SETTINGS`
+
+- 🇨🇿 **Czech** — Native
+- 🇬🇧 **English** — B2
+
+<img src="./assets/divider.svg" width="100%" alt="" />
+
+## `// COMMS`
 
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/RomanKaxo/RomanKaxo/output/github-contribution-grid-snake-dark.svg" width="100%" />
+<a href="mailto:romanek8888@email.cz">
+  <img src="https://img.shields.io/badge/Email-B51E29?style=for-the-badge&logo=gmail&logoColor=white" alt="Email" />
+</a>
+<a href="https://github.com/RomanKaxo">
+  <img src="https://img.shields.io/badge/GitHub-111116?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+</a>
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=2B46E0&height=120&section=footer" width="100%" />
+</div>
+
+<br/>
+
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/RomanKaxo/RomanKaxo/output/github-contribution-grid-snake-dark.svg" width="100%" alt="GitHub contribution snake" />
+
+<br/>
+
+<sub>Code. Style. Repeat.</sub>
 
 </div>
