@@ -4,12 +4,11 @@ import sys, html, math
 from PIL import Image
 SI, OUT = sys.argv[1], sys.argv[2]
 LOGOS = [('javascript', 'JavaScript', 'F7DF1E'), ('typescript', 'TypeScript', '3178C6'), ('react', 'React', '61DAFB'), ('nodedotjs', 'Node.js', '5FA04E'),
-         ('php', 'PHP', '777BB4'), ('laravel', 'Laravel', 'FF2D20'), ('html5', 'HTML5', 'E34F26'), ('css3', 'CSS3', '1572B6'), ('tailwindcss', 'Tailwind CSS', '06B6D4'),
-         ('wordpress', 'WordPress', '3D9AD1'), ('mysql', 'MySQL', '4479A1'), ('git', 'Git', 'F05032'), ('archlinux', 'Arch Linux', '1793D1')]
-COLS, ROWS = 56, 28            # znaků na logo
-FPS = 24                        # snímků otočky za sekundu
-FADE_IN, HOLD1, SPIN_S, HOLD2, FADE_OUT = .45, 1.1, 1.5, .5, .45   # časy jednoho loga v s
-SPIN = int(SPIN_S * FPS)        # snímků otočky
+         ('php', 'PHP', '777BB4'), ('laravel', 'Laravel', 'FF2D20'), ('html5', 'HTML5', 'E34F26'), ('tailwindcss', 'Tailwind CSS', '06B6D4'),
+         ('git', 'Git', 'F05032'), ('archlinux', 'Arch Linux', '1793D1')]
+COLS, ROWS = 56, 28                  # znaků na logo
+FADE_IN, HOLD1, SPIN_S, HOLD2, FADE_OUT = .7, 1.8, 2.8, .9, .7   # pomalejší tempo jednoho loga (s)
+SPIN = 48                             # snímků otočky (~17 fps), úhel s plynulým rozjezdem a dojezdem
 RAMP = " .:-=+*#%@"
 def frame(img, ang):
     c = math.cos(ang)
@@ -19,46 +18,48 @@ def frame(img, ang):
     canvas = Image.new('RGBA', (img.width, img.height), (0, 0, 0, 0))
     canvas.alpha_composite(im, ((img.width - w) // 2, 0))
     small = canvas.resize((COLS, ROWS), Image.LANCZOS)
-    rows = []
-    for y in range(ROWS):
-        rows.append(''.join(' ' if (a := small.getpixel((x, y))[3]) < 40 else RAMP[min(9, max(1, int(a / 255 * 9 + .5)))] for x in range(COLS)))
-    return rows
-ease = lambda t: .5 - .5 * math.cos(math.pi * t)   # plynulý rozjezd i dojezd otáčky
+    return [''.join(' ' if (a := small.getpixel((x, y))[3]) < 40 else RAMP[min(9, max(1, int(a / 255 * 9 + .5)))] for x in range(COLS)) for y in range(ROWS)]
+ease = lambda t: .5 - .5 * math.cos(math.pi * t)
 per = FADE_IN + HOLD1 + SPIN_S + HOLD2 + FADE_OUT
 total = per * len(LOGOS)
 CW, LH, X0, Y0 = 8.4, 15.6, 40, 58
+FH = ROWS * LH + 40                    # výška jednoho snímku ve „filmovém pásu“
 CX, CY = X0 + COLS * CW / 2, Y0 + ROWS * LH / 2
 k = lambda t: f'{max(0, min(1, t / total)):.5f}'
-def anim(points):
-    """points = [(čas s, opacity)], lineárně mezi nimi, jinak 0."""
-    pts = [(0, 0)] + points + [(total, 0)]
-    pts = sorted({round(t, 4): v for t, v in pts}.items())
-    return (f'<animate attributeName="opacity" dur="{total:.2f}s" repeatCount="indefinite" calcMode="linear" '
-            f'keyTimes="{";".join(k(t) for t, _ in pts)}" values="{";".join(f"{v:g}" for _, v in pts)}"/>')
-def text(rows):
-    return ''.join(f'<text x="{X0}" y="{Y0 + i * LH:.1f}" xml:space="preserve">{html.escape(r)}</text>' for i, r in enumerate(rows) if r.strip())
+def text(rows, dy):
+    # jeden <text> na snímek, řádky jako <tspan>: o řád méně prvků než text na řádek
+    return (f'<text y="{Y0 + dy:.1f}" xml:space="preserve">' +
+            ''.join(f'<tspan x="{X0}" dy="{0 if i == 0 else LH}">{html.escape(r) if r.strip() else " "}</tspan>' for i, r in enumerate(rows)) + '</text>')
 groups = []
+SAMPLES = 64                           # vzorků otočky; mezi nimi prohlížeč interpoluje v každém snímku displeje (60 fps)
+def spin_values(sign):
+    """Měřítko X přední (sign=1) nebo zadní (sign=-1) strany v průběhu otočky: max(0, sign·cos θ), θ s plynulým rozjezdem."""
+    return [max(0.0, sign * math.cos(2 * math.pi * ease(i / SAMPLES))) for i in range(SAMPLES + 1)]
+def side(rows, hexc, sign, t0, ts, te, tend):
+    keys = ['0', k(ts)] + [k(ts + i * SPIN_S / SAMPLES) for i in range(1, SAMPLES)] + [k(te), '1']
+    sv = spin_values(sign)
+    base = 1.0 if sign > 0 else 0.0
+    vals = [f'{base:.3f} 1', f'{sv[0]:.3f} 1'] + [f'{max(sv[i], .001):.3f} 1' if sv[i] > 0 else '0.001 1' for i in range(1, SAMPLES)] + [f'{base:.3f} 1', f'{base:.3f} 1']
+    sc = (f'<animateTransform attributeName="transform" type="scale" dur="{total:.2f}s" repeatCount="indefinite" calcMode="linear" '
+          f'keyTimes="{";".join(keys)}" values="{";".join(vals)}"/>')
+    body = (f'<text y="{Y0:.1f}" xml:space="preserve">' +
+            ''.join(f'<tspan x="{X0}" dy="{0 if i == 0 else LH}">{html.escape(r) if r.strip() else " "}</tspan>' for i, r in enumerate(rows)) + '</text>')
+    return f'<g transform="translate({CX:.1f} 0)"><g>{sc}<g transform="translate({-CX:.1f} 0)" fill="#{hexc}"{"" if sign > 0 else " opacity=\".78\""}>{body}</g></g></g>'
 for li, (slug, name, hexc) in enumerate(LOGOS):
     img = Image.open(f'{SI}/{slug}.png').convert('RGBA').resize((280, 280), Image.LANCZOS)
-    pad = Image.new('RGBA', (280, 280), (0, 0, 0, 0)); pad.alpha_composite(img)
-    t0 = li * per
-    ts = t0 + FADE_IN + HOLD1               # začátek otočky
-    te = ts + SPIN_S                        # konec otočky
-    tend = t0 + per
-    eps = .5 / FPS                          # krátké prolnutí sousedních snímků = měkčí pohyb
-    # čelní snímek: nástup (prolnutí + mírné zvětšení), stání, pak znovu po otočce, stání, odchod
-    front = text(frame(pad, 0))
-    scale = (f'<animateTransform attributeName="transform" type="scale" additive="sum" dur="{total:.2f}s" repeatCount="indefinite" calcMode="spline" '
-             f'keyTimes="0;{k(t0)};{k(t0 + FADE_IN)};{k(tend - FADE_OUT)};{k(tend)};1" values="1;.9;1;1;1.06;1" '
-             f'keySplines="0 0 1 1;.2 .8 .3 1;0 0 1 1;.6 0 .8 .4;0 0 1 1"/>')
-    groups.append(f'<g transform="translate({CX:.1f} {CY:.1f})"><g fill="#{hexc}">{anim([(t0, 0), (t0 + FADE_IN, 1), (ts, 1), (ts + eps, 0), (te - eps, 0), (te, 1), (tend - FADE_OUT, 1), (tend, 0)])}'
-                  f'{scale}<g transform="translate({-CX:.1f} {-CY:.1f})">{front}</g></g></g>')
-    for fi in range(1, SPIN):
-        ang = 2 * math.pi * ease(fi / SPIN)
-        a = ts + fi / FPS
-        groups.append(f'<g fill="#{hexc}">{anim([(a - eps, 0), (a, 1), (a + 1 / FPS, 1), (a + 1 / FPS + eps, 0)])}{text(frame(pad, ang))}</g>')
-    groups.append(f'<g>{anim([(t0, 0), (t0 + FADE_IN, 1), (tend - FADE_OUT, 1), (tend, 0)])}'
-                  f'<text x="{CX:.0f}" y="{Y0 + ROWS * LH + 22:.0f}" text-anchor="middle" font-size="18" fill="#{hexc}">{html.escape(name)}</text></g>')
+    t0 = li * per; ts = t0 + FADE_IN + HOLD1; te = ts + SPIN_S; tend = t0 + per
+    front, back = frame(img, 0), frame(img, math.pi)
+    fade = (f'<animate attributeName="opacity" dur="{total:.2f}s" repeatCount="indefinite" calcMode="spline" '
+            f'keyTimes="0;{k(t0)};{k(t0 + FADE_IN)};{k(tend - FADE_OUT)};{k(tend)};1" values="0;0;1;1;0;0" '
+            f'keySplines="0 0 1 1;.25 .1 .25 1;0 0 1 1;.42 0 .58 1;0 0 1 1"/>')
+    zoom = (f'<animateTransform attributeName="transform" type="scale" dur="{total:.2f}s" repeatCount="indefinite" calcMode="spline" '
+            f'keyTimes="0;{k(t0)};{k(t0 + FADE_IN)};{k(tend - FADE_OUT)};{k(tend)};1" values="1;.9;1;1;1.06;1" '
+            f'keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.64 0 .78 0;0 0 1 1"/>')
+    groups.append(f'<g opacity="0">{fade}<g transform="translate({CX:.1f} {CY:.1f})"><g>{zoom}<g transform="translate({-CX:.1f} {-CY:.1f})">'
+                  f'{side(front, hexc, 1, t0, ts, te, tend)}{side(back, hexc, -1, t0, ts, te, tend)}'
+                  f'<text x="{CX:.0f}" y="{Y0 + ROWS * LH + 22:.0f}" text-anchor="middle" font-size="18" fill="#{hexc}">{html.escape(name)}</text></g></g></g></g>')
+# jemné plynulé pohupování celého loga (běží stále, interpoluje prohlížeč)
+groups = [f'<g><animateTransform attributeName="transform" type="translate" dur="4s" repeatCount="indefinite" calcMode="spline" values="0 0;0 -6;0 0" keyTimes="0;.5;1" keySplines=".45 0 .55 1;.45 0 .55 1"/>'] + groups + ['</g>']
 A, K, M, T = '#ff5a4a', '#7dd3fc', '#8b8b95', '#f4f4f5'
 info = [('k', 'Škola', 'SOŠ EDUCAnet Brno · IT, 4. ročník'), ('k', 'Město', 'Brno'), ('k', 'OS', 'Arch Linux'), ('s',),
         ('k', 'Frontend', 'HTML · CSS · JavaScript · TypeScript · React'), ('k', 'Backend', 'Node.js · PHP · Laravel · MySQL · C#'),
