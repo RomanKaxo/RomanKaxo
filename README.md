@@ -1,13 +1,11 @@
-<div align="center">
-  <img src="./assets/profile.svg" alt="RomanKaxo — Front-End Developer" width="100%" />
-</div>
+<img src="./assets/neofetch.svg" alt="roman@kaco: student IT z Brna. Frontend HTML, CSS, JavaScript, TypeScript, React; backend Node.js, PHP, Laravel, MySQL, C#; WordPress, Tailwind, Vite; AI Claude Code, Codex, Ollama." width="100%">
 
-<div align="center">
-  <sub>
-    <a href="https://trimistri.cz">Tři Mistři</a> ·
-    <a href="https://washwrap.cz">Washwrap</a> ·
-    <a href="https://brandriders.sk">Brandriders</a> ·
-    <a href="https://okriders.sk">OKRiders</a> ·
-    <a href="mailto:romanek8888@email.cz">Email</a>
-  </sub>
-</div>
+Dělám weby pro klienty a nástroje, se kterými LLM agenti zvládnou opravdovou práci na vlastním počítači.
+
+| Projekt | Co to je |
+| --- | --- |
+| **Elaris** | Harness pro LLM agenty: jedno zadání, tým specialistů, CLI i web. Moje maturitní práce. *(soukromé)* |
+| **video-system** | Ze scénáře krátké video: hlas, animace v Remotion, titulky po slovech. *(soukromé)* |
+| [Tři Mistři](https://trimistri.cz) | Web, Instagram a interní aplikace pro malířskou firmu |
+| [Wash&Wrap](https://washwrap.cz) · [Brandriders](https://brandriders.sk) · [OKRiders](https://okriders.sk) | Weby pro klienty |
+| [rocm-llm-benchmark](https://github.com/RomanKaxo/rocm-llm-benchmark) | Rychlost LLM modelů 7B–34B na AMD Radeon AI PRO R9700 |
