@@ -7,59 +7,54 @@ LOGOS = [('javascript', 'JavaScript', 'F7DF1E'), ('typescript', 'TypeScript', '3
          ('php', 'PHP', '777BB4'), ('laravel', 'Laravel', 'FF2D20'), ('html5', 'HTML5', 'E34F26'), ('tailwindcss', 'Tailwind CSS', '06B6D4'),
          ('git', 'Git', 'F05032'), ('archlinux', 'Arch Linux', '1793D1')]
 COLS, ROWS = 56, 28                  # znaků na logo
-FADE_IN, HOLD1, SPIN_S, HOLD2, FADE_OUT = .7, 1.8, 2.8, .9, .7   # pomalejší tempo jednoho loga (s)
-SPIN = 48                             # snímků otočky (~17 fps), úhel s plynulým rozjezdem a dojezdem
+PRINT, HOLD, FADE = 1.6, 3.2, .8      # vypsání řádek po řádku, stání, prolnutí do dalšího loga (s)
 RAMP = " .:-=+*#%@"
-def frame(img, ang):
-    c = math.cos(ang)
-    w = max(1, int(img.width * abs(c)))
-    im = img.resize((w, img.height), Image.LANCZOS)
-    if c < 0: im = im.transpose(Image.FLIP_LEFT_RIGHT)
-    canvas = Image.new('RGBA', (img.width, img.height), (0, 0, 0, 0))
-    canvas.alpha_composite(im, ((img.width - w) // 2, 0))
-    small = canvas.resize((COLS, ROWS), Image.LANCZOS)
+FONT = '/usr/share/fonts/TTF/JetBrainsMonoNerdFontMono-Regular.ttf'
+CW, LH, X0, Y0 = 8.4, 15.6, 40, 46
+AW, AH = COLS * CW, ROWS * LH
+def ascii_rows(img):
+    small = img.resize((COLS, ROWS), Image.LANCZOS)
     return [''.join(' ' if (a := small.getpixel((x, y))[3]) < 40 else RAMP[min(9, max(1, int(a / 255 * 9 + .5)))] for x in range(COLS)) for y in range(ROWS)]
-ease = lambda t: .5 - .5 * math.cos(math.pi * t)
-per = FADE_IN + HOLD1 + SPIN_S + HOLD2 + FADE_OUT
+def ascii_png(rows, hexc, scale=2):
+    """ASCII předkreslené do PNG: prohlížeč pak animuje jen obrázek (ořez, průhlednost), ne tisíce znaků."""
+    from PIL import ImageDraw, ImageFont
+    import io, base64
+    f = ImageFont.truetype(FONT, int(14 * scale))
+    im = Image.new('RGBA', (int(AW * scale), int(AH * scale)), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im); col = tuple(int(hexc[i:i + 2], 16) for i in (0, 2, 4))
+    for i, r in enumerate(rows):
+        d.text((0, i * LH * scale), r, font=f, fill=col + (255,))
+    buf = io.BytesIO(); im.quantize(colors=16, method=Image.Quantize.FASTOCTREE).save(buf, 'PNG', optimize=True)  # 16 barev stačí (jedna barva + průhlednost)
+    return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
+per = PRINT + HOLD + FADE
 total = per * len(LOGOS)
-CW, LH, X0, Y0 = 8.4, 15.6, 40, 58
-FH = ROWS * LH + 40                    # výška jednoho snímku ve „filmovém pásu“
-CX, CY = X0 + COLS * CW / 2, Y0 + ROWS * LH / 2
-k = lambda t: f'{max(0, min(1, t / total)):.5f}'
-def text(rows, dy):
-    # jeden <text> na snímek, řádky jako <tspan>: o řád méně prvků než text na řádek
-    return (f'<text y="{Y0 + dy:.1f}" xml:space="preserve">' +
-            ''.join(f'<tspan x="{X0}" dy="{0 if i == 0 else LH}">{html.escape(r) if r.strip() else " "}</tspan>' for i, r in enumerate(rows)) + '</text>')
-groups = []
-SAMPLES = 64                           # vzorků otočky; mezi nimi prohlížeč interpoluje v každém snímku displeje (60 fps)
-def spin_values(sign):
-    """Měřítko X přední (sign=1) nebo zadní (sign=-1) strany v průběhu otočky: max(0, sign·cos θ), θ s plynulým rozjezdem."""
-    return [max(0.0, sign * math.cos(2 * math.pi * ease(i / SAMPLES))) for i in range(SAMPLES + 1)]
-def side(rows, hexc, sign, t0, ts, te, tend):
-    keys = ['0', k(ts)] + [k(ts + i * SPIN_S / SAMPLES) for i in range(1, SAMPLES)] + [k(te), '1']
-    sv = spin_values(sign)
-    base = 1.0 if sign > 0 else 0.0
-    vals = [f'{base:.3f} 1', f'{sv[0]:.3f} 1'] + [f'{max(sv[i], .001):.3f} 1' if sv[i] > 0 else '0.001 1' for i in range(1, SAMPLES)] + [f'{base:.3f} 1', f'{base:.3f} 1']
-    sc = (f'<animateTransform attributeName="transform" type="scale" dur="{total:.2f}s" repeatCount="indefinite" calcMode="linear" '
-          f'keyTimes="{";".join(keys)}" values="{";".join(vals)}"/>')
-    body = (f'<text y="{Y0:.1f}" xml:space="preserve">' +
-            ''.join(f'<tspan x="{X0}" dy="{0 if i == 0 else LH}">{html.escape(r) if r.strip() else " "}</tspan>' for i, r in enumerate(rows)) + '</text>')
-    return f'<g transform="translate({CX:.1f} 0)"><g>{sc}<g transform="translate({-CX:.1f} 0)" fill="#{hexc}"{"" if sign > 0 else " opacity=\".78\""}>{body}</g></g></g>'
+k = lambda t: f'{max(0, min(1, (t % total) / total)):.5f}'
+def anim(attr, pts, spline=None):
+    """pts = [(čas, hodnota)] v rámci smyčky; mezi nimi lineárně nebo podle křivky."""
+    pts = sorted(pts)
+    keys = ';'.join(k(t) if 0 < t < total else ('0' if t <= 0 else '1') for t, _ in pts)
+    vals = ';'.join(str(v) for _, v in pts)
+    sp = f' calcMode="spline" keySplines="{";".join([spline] * (len(pts) - 1))}"' if spline else ''
+    return f'<animate attributeName="{attr}" dur="{total:.2f}s" repeatCount="indefinite" keyTimes="{keys}" values="{vals}"{sp}/>'
+groups, defs = [], []
 for li, (slug, name, hexc) in enumerate(LOGOS):
     img = Image.open(f'{SI}/{slug}.png').convert('RGBA').resize((280, 280), Image.LANCZOS)
-    t0 = li * per; ts = t0 + FADE_IN + HOLD1; te = ts + SPIN_S; tend = t0 + per
-    front, back = frame(img, 0), frame(img, math.pi)
-    fade = (f'<animate attributeName="opacity" dur="{total:.2f}s" repeatCount="indefinite" calcMode="spline" '
-            f'keyTimes="0;{k(t0)};{k(t0 + FADE_IN)};{k(tend - FADE_OUT)};{k(tend)};1" values="0;0;1;1;0;0" '
-            f'keySplines="0 0 1 1;.25 .1 .25 1;0 0 1 1;.42 0 .58 1;0 0 1 1"/>')
-    zoom = (f'<animateTransform attributeName="transform" type="scale" dur="{total:.2f}s" repeatCount="indefinite" calcMode="spline" '
-            f'keyTimes="0;{k(t0)};{k(t0 + FADE_IN)};{k(tend - FADE_OUT)};{k(tend)};1" values="1;.9;1;1;1.06;1" '
-            f'keySplines="0 0 1 1;.22 1 .36 1;0 0 1 1;.64 0 .78 0;0 0 1 1"/>')
-    groups.append(f'<g opacity="0">{fade}<g transform="translate({CX:.1f} {CY:.1f})"><g>{zoom}<g transform="translate({-CX:.1f} {-CY:.1f})">'
-                  f'{side(front, hexc, 1, t0, ts, te, tend)}{side(back, hexc, -1, t0, ts, te, tend)}'
-                  f'<text x="{CX:.0f}" y="{Y0 + ROWS * LH + 22:.0f}" text-anchor="middle" font-size="18" fill="#{hexc}">{html.escape(name)}</text></g></g></g></g>')
-# jemné plynulé pohupování celého loga (běží stále, interpoluje prohlížeč)
-groups = [f'<g><animateTransform attributeName="transform" type="translate" dur="4s" repeatCount="indefinite" calcMode="spline" values="0 0;0 -6;0 0" keyTimes="0;.5;1" keySplines=".45 0 .55 1;.45 0 .55 1"/>'] + groups + ['</g>']
+    png = ascii_png(ascii_rows(img), hexc)
+    t0 = li * per; tp = t0 + PRINT; th = tp + HOLD; tend = th + FADE
+    # tisk shora dolů = výška ořezu roste po celých řádcích; jemná křivka, ať to „dojede“
+    rows_h = [(t0 + PRINT * i / ROWS, round(i * LH, 1)) for i in range(ROWS + 1)]
+    clip_h = [(0, 0)] + ([(t0 - .001, 0)] if t0 > 0 else []) + rows_h + [(tend, AH), (tend + .001, 0), (total, 0)]
+    defs.append(f'<clipPath id="c{li}"><rect x="{X0 - 4}" y="{Y0}" width="{AW + 8:.0f}" height="0">{anim("height", clip_h)}</rect></clipPath>')
+    op = [(0, 0)] + ([(t0 - .001, 0)] if t0 > 0 else []) + [(t0, 1), (th, 1), (tend, 0), (total, 0)]
+    cur_y = [(0, Y0)] + ([(t0 - .001, Y0)] if t0 > 0 else []) + [(t0 + PRINT * i / ROWS, round(Y0 + i * LH, 1)) for i in range(ROWS + 1)] + [(total, Y0)]
+    cur_op = [(0, 0)] + ([(t0 - .001, 0)] if t0 > 0 else []) + [(t0, 1), (tp, 1), (tp + .25, 0), (total, 0)]
+    label_w = [(0, 0)] + ([(t0 - .001, 0)] if t0 > 0 else []) + [(tp, 0), (tp + .6, 260), (tend, 260), (tend + .001, 0), (total, 0)]
+    defs.append(f'<clipPath id="n{li}"><rect x="{X0 + AW / 2 - 130:.0f}" y="{Y0 + AH + 2:.0f}" width="0" height="30">{anim("width", label_w)}</rect></clipPath>')
+    groups.append(f'<g opacity="0">{anim("opacity", op, ".4 0 .2 1")}'
+                  f'<image x="{X0}" y="{Y0}" width="{AW:.0f}" height="{AH:.0f}" href="{png}" clip-path="url(#c{li})"/>'
+                  f'<rect x="{X0}" width="{AW:.0f}" height="3" fill="#{hexc}" opacity="0">{anim("y", cur_y)}{anim("opacity", cur_op)}</rect>'
+                  f'<text x="{X0 + AW / 2:.0f}" y="{Y0 + AH + 24:.0f}" text-anchor="middle" font-size="18" fill="#{hexc}" clip-path="url(#n{li})">{html.escape(name)}</text></g>')
+groups = [f'<defs>{"".join(defs)}</defs>'] + groups
 A, K, M, T = '#ff5a4a', '#7dd3fc', '#8b8b95', '#f4f4f5'
 info = [('k', 'Škola', 'SOŠ EDUCAnet Brno · IT, 4. ročník'), ('k', 'Město', 'Brno'), ('k', 'OS', 'Arch Linux'), ('s',),
         ('k', 'Frontend', 'HTML · CSS · JavaScript · TypeScript · React'), ('k', 'Backend', 'Node.js · PHP · Laravel · MySQL · C#'),
@@ -77,7 +72,7 @@ cols = ['#18181b', '#ff5a4a', '#4ade80', '#facc15', '#60a5fa', '#c084fc', '#22d3
 out.append(''.join(f'<rect x="{IX + i * 30}" y="{iy}" width="30" height="18" fill="{c}"/>' for i, c in enumerate(cols)))
 # blikající kurzor
 out.append(f'<rect x="{IX}" y="{iy + 40}" width="11" height="19" fill="{T}"><animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite" calcMode="discrete"/></rect>')
-H = max(Y0 + ROWS * LH + 50, iy + 80)
+H = max(Y0 + AH + 50, iy + 80)
 svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="{H:.0f}" viewBox="0 0 1200 {H:.0f}" role="img" aria-labelledby="t">
 <title id="t">roman@kaco: technologie, se kterými pracuji ({", ".join(n for _, n, _ in LOGOS)})</title>
 <rect width="1200" height="{H:.0f}" rx="16" fill="#0d0d11"/><rect x=".5" y=".5" width="1199" height="{H - 1:.0f}" rx="16" fill="none" stroke="#27272a"/>
