@@ -7,54 +7,68 @@ LOGOS = [('javascript', 'JavaScript', 'F7DF1E'), ('typescript', 'TypeScript', '3
          ('php', 'PHP', '777BB4'), ('laravel', 'Laravel', 'FF2D20'), ('html5', 'HTML5', 'E34F26'), ('tailwindcss', 'Tailwind CSS', '06B6D4'),
          ('git', 'Git', 'F05032'), ('archlinux', 'Arch Linux', '1793D1')]
 COLS, ROWS = 56, 28                  # znaků na logo
-PRINT, HOLD, FADE = 1.6, 3.2, .8      # vypsání řádek po řádku, stání, prolnutí do dalšího loga (s)
+T_IN, T_HOLD, T_OUT = 1.3, 3.4, 1.3         # poskládání, stání, rozplynutí (s)
+STAGES = 7                            # mezistavů rozplynutí; mezi nimi plynulé prolnutí (obrázky = levné pro prohlížeč)
 RAMP = " .:-=+*#%@"
 FONT = '/usr/share/fonts/TTF/JetBrainsMonoNerdFontMono-Regular.ttf'
 CW, LH, X0, Y0 = 8.4, 15.6, 40, 46
 AW, AH = COLS * CW, ROWS * LH
+import random, io, base64
+from PIL import ImageDraw, ImageFont
+SC = 1.0
+FNT = ImageFont.truetype(FONT, int(14 * SC))
 def ascii_rows(img):
     small = img.resize((COLS, ROWS), Image.LANCZOS)
     return [''.join(' ' if (a := small.getpixel((x, y))[3]) < 40 else RAMP[min(9, max(1, int(a / 255 * 9 + .5)))] for x in range(COLS)) for y in range(ROWS)]
-def ascii_png(rows, hexc, scale=2):
-    """ASCII předkreslené do PNG: prohlížeč pak animuje jen obrázek (ořez, průhlednost), ne tisíce znaků."""
-    from PIL import ImageDraw, ImageFont
-    import io, base64
-    f = ImageFont.truetype(FONT, int(14 * scale))
-    im = Image.new('RGBA', (int(AW * scale), int(AH * scale)), (0, 0, 0, 0))
+def stage_png(rows, hexc, thr, p):
+    """Mezistav rozplynutí p ∈ <0,1>: znak s prahem pod p už zmizel, znaky těsně nad prahem blednou, stoupají a mění se na lehčí."""
+    im = Image.new('RGBA', (int(AW * SC), int(AH * SC) + 40), (0, 0, 0, 0))
     d = ImageDraw.Draw(im); col = tuple(int(hexc[i:i + 2], 16) for i in (0, 2, 4))
-    for i, r in enumerate(rows):
-        d.text((0, i * LH * scale), r, font=f, fill=col + (255,))
-    buf = io.BytesIO(); im.quantize(colors=16, method=Image.Quantize.FASTOCTREE).save(buf, 'PNG', optimize=True)  # 16 barev stačí (jedna barva + průhlednost)
+    for y, r in enumerate(rows):
+        for x, ch in enumerate(r):
+            if ch == ' ': continue
+            t = thr[y][x]
+            if t < p: continue
+            near = max(0.0, 1 - (t - p) / .22)          # 1 = právě se rozpouští
+            a = int(255 * (1 - .75 * near))
+            c = RAMP[max(1, RAMP.index(ch) - int(near * 5))]   # lehčí znak = „řídne“
+            d.text((x * CW * SC, (y * LH - near * 14) * SC + 20), c, font=FNT, fill=col + (a,))
+    buf = io.BytesIO(); im.quantize(colors=8, method=Image.Quantize.FASTOCTREE).save(buf, 'PNG', optimize=True)
     return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
-per = PRINT + HOLD + FADE
+per = T_IN + T_HOLD + T_OUT
 total = per * len(LOGOS)
-k = lambda t: f'{max(0, min(1, (t % total) / total)):.5f}'
+k = lambda t: f'{max(0, min(1, t / total)):.5f}'
 def anim(attr, pts, spline=None):
-    """pts = [(čas, hodnota)] v rámci smyčky; mezi nimi lineárně nebo podle křivky."""
-    pts = sorted(pts)
-    keys = ';'.join(k(t) if 0 < t < total else ('0' if t <= 0 else '1') for t, _ in pts)
-    vals = ';'.join(str(v) for _, v in pts)
+    pts = sorted(set((round(t, 4), v) for t, v in pts))
+    keys = ';'.join('0' if t <= 0 else '1' if t >= total else k(t) for t, _ in pts)
+    vals = ';'.join(f'{v:g}' for _, v in pts)
     sp = f' calcMode="spline" keySplines="{";".join([spline] * (len(pts) - 1))}"' if spline else ''
     return f'<animate attributeName="{attr}" dur="{total:.2f}s" repeatCount="indefinite" keyTimes="{keys}" values="{vals}"{sp}/>'
-groups, defs = [], []
+def bump(c, w):
+    """průhlednost mezistavu: vrchol v čase c, lineárně ±w (sousední mezistavy se prolínají)."""
+    return [(0, 0), (max(0, c - w), 0), (c, 1), (min(total, c + w), 0), (total, 0)]
+groups = []
+rnd = random.Random(7)
 for li, (slug, name, hexc) in enumerate(LOGOS):
     img = Image.open(f'{SI}/{slug}.png').convert('RGBA').resize((280, 280), Image.LANCZOS)
-    png = ascii_png(ascii_rows(img), hexc)
-    t0 = li * per; tp = t0 + PRINT; th = tp + HOLD; tend = th + FADE
-    # tisk shora dolů = výška ořezu roste po celých řádcích; jemná křivka, ať to „dojede“
-    rows_h = [(t0 + PRINT * i / ROWS, round(i * LH, 1)) for i in range(ROWS + 1)]
-    clip_h = [(0, 0)] + ([(t0 - .001, 0)] if t0 > 0 else []) + rows_h + [(tend, AH), (tend + .001, 0), (total, 0)]
-    defs.append(f'<clipPath id="c{li}"><rect x="{X0 - 4}" y="{Y0}" width="{AW + 8:.0f}" height="0">{anim("height", clip_h)}</rect></clipPath>')
-    op = [(0, 0)] + ([(t0 - .001, 0)] if t0 > 0 else []) + [(t0, 1), (th, 1), (tend, 0), (total, 0)]
-    cur_y = [(0, Y0)] + ([(t0 - .001, Y0)] if t0 > 0 else []) + [(t0 + PRINT * i / ROWS, round(Y0 + i * LH, 1)) for i in range(ROWS + 1)] + [(total, Y0)]
-    cur_op = [(0, 0)] + ([(t0 - .001, 0)] if t0 > 0 else []) + [(t0, 1), (tp, 1), (tp + .25, 0), (total, 0)]
-    label_w = [(0, 0)] + ([(t0 - .001, 0)] if t0 > 0 else []) + [(tp, 0), (tp + .6, 260), (tend, 260), (tend + .001, 0), (total, 0)]
-    defs.append(f'<clipPath id="n{li}"><rect x="{X0 + AW / 2 - 130:.0f}" y="{Y0 + AH + 2:.0f}" width="0" height="30">{anim("width", label_w)}</rect></clipPath>')
-    groups.append(f'<g opacity="0">{anim("opacity", op, ".4 0 .2 1")}'
-                  f'<image x="{X0}" y="{Y0}" width="{AW:.0f}" height="{AH:.0f}" href="{png}" clip-path="url(#c{li})"/>'
-                  f'<rect x="{X0}" width="{AW:.0f}" height="3" fill="#{hexc}" opacity="0">{anim("y", cur_y)}{anim("opacity", cur_op)}</rect>'
-                  f'<text x="{X0 + AW / 2:.0f}" y="{Y0 + AH + 24:.0f}" text-anchor="middle" font-size="18" fill="#{hexc}" clip-path="url(#n{li})">{html.escape(name)}</text></g>')
-groups = [f'<defs>{"".join(defs)}</defs>'] + groups
+    rows = ascii_rows(img)
+    # práh rozplynutí: náhoda + mírně shora dolů, ať to působí jako kouř stoupající vzhůru
+    thr = [[min(.999, .65 * rnd.random() + .35 * (y / ROWS)) for x in range(COLS)] for y in range(ROWS)]
+    t0 = li * per; ti = t0 + T_IN; th = ti + T_HOLD; tend = th + T_OUT
+    step_in, step_out = T_IN / STAGES, T_OUT / STAGES
+    for si in range(STAGES + 1):
+        p = 1 - si / STAGES                         # 1 = nic, 0 = celé logo
+        png = stage_png(rows, hexc, thr, p * 1.0 if si < STAGES else -1)
+        if si == STAGES:                            # celé logo: nástup, stání, začátek odchodu
+            op = [(0, 0), (max(0, ti - step_in), 0), (ti, 1), (th, 1), (min(total, th + step_out), 0), (total, 0)]
+        else:
+            c_in = t0 + si * step_in                # při skládání roste
+            c_out = tend - si * step_out            # při rozplývání ubývá (stejné mezistavy obráceně)
+            op = sorted(set(bump(c_in, step_in) + bump(c_out, step_out)))
+            op = [(t, v) for t, v in op if not (t in (0, total) and v)] 
+        groups.append(f'<image x="{X0}" y="{Y0 - 20 / SC:.1f}" width="{AW:.0f}" height="{AH + 40 / SC:.0f}" href="{png}" opacity="0">{anim("opacity", op)}</image>')
+    groups.append(f'<text x="{X0 + AW / 2:.0f}" y="{Y0 + AH + 26:.0f}" text-anchor="middle" font-size="18" fill="#{hexc}" opacity="0">'
+                  f'{anim("opacity", [(0, 0), (max(0, ti - .4), 0), (ti, 1), (th, 1), (th + .5, 0), (total, 0)], ".4 0 .2 1")}{html.escape(name)}</text>')
 A, K, M, T = '#ff5a4a', '#7dd3fc', '#8b8b95', '#f4f4f5'
 info = [('k', 'Škola', 'SOŠ EDUCAnet Brno · IT, 4. ročník'), ('k', 'Město', 'Brno'), ('k', 'OS', 'Arch Linux'), ('s',),
         ('k', 'Frontend', 'HTML · CSS · JavaScript · TypeScript · React'), ('k', 'Backend', 'Node.js · PHP · Laravel · MySQL · C#'),
