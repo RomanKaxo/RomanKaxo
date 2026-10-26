@@ -7,8 +7,8 @@ LOGOS = [('javascript', 'JavaScript', 'F7DF1E'), ('typescript', 'TypeScript', '3
          ('php', 'PHP', '777BB4'), ('laravel', 'Laravel', 'FF2D20'), ('html5', 'HTML5', 'E34F26'), ('tailwindcss', 'Tailwind CSS', '06B6D4'),
          ('git', 'Git', 'F05032'), ('archlinux', 'Arch Linux', '1793D1')]
 COLS, ROWS = 56, 28                  # znaků na logo
-T_IN, T_HOLD, T_OUT = 1.3, 3.4, 1.3         # poskládání, stání, rozplynutí (s)
-STAGES = 7                            # mezistavů rozplynutí; mezi nimi plynulé prolnutí (obrázky = levné pro prohlížeč)
+T_IN, T_HOLD, T_OUT = 1.7, 3.2, 1.7         # poskládání, stání, rozplynutí (s)
+STAGES = 14                            # mezistavů rozplynutí; mezi nimi plynulé prolnutí (obrázky = levné pro prohlížeč)
 RAMP = " .:-=+*#%@"
 FONT = '/usr/share/fonts/TTF/JetBrainsMonoNerdFontMono-Regular.ttf'
 CW, LH, X0, Y0 = 8.4, 15.6, 40, 46
@@ -33,9 +33,10 @@ def stage_png(rows, hexc, thr, p):
             a = int(255 * (1 - .75 * near))
             c = RAMP[max(1, RAMP.index(ch) - int(near * 5))]   # lehčí znak = „řídne“
             d.text((x * CW * SC, (y * LH - near * 14) * SC + 20), c, font=FNT, fill=col + (a,))
-    buf = io.BytesIO(); im.quantize(colors=8, method=Image.Quantize.FASTOCTREE).save(buf, 'PNG', optimize=True)
+    buf = io.BytesIO(); im.quantize(colors=6, method=Image.Quantize.FASTOCTREE).save(buf, 'PNG', optimize=True)
     return 'data:image/png;base64,' + base64.b64encode(buf.getvalue()).decode()
-per = T_IN + T_HOLD + T_OUT
+OVERLAP = .8                          # další logo se skládá, zatímco předchozí doznívá
+per = T_IN + T_HOLD + T_OUT - OVERLAP
 total = per * len(LOGOS)
 k = lambda t: f'{max(0, min(1, t / total)):.5f}'
 def anim(attr, pts, spline=None):
@@ -54,7 +55,7 @@ for li, (slug, name, hexc) in enumerate(LOGOS):
     rows = ascii_rows(img)
     # práh rozplynutí: náhoda + mírně shora dolů, ať to působí jako kouř stoupající vzhůru
     thr = [[min(.999, .65 * rnd.random() + .35 * (y / ROWS)) for x in range(COLS)] for y in range(ROWS)]
-    t0 = li * per; ti = t0 + T_IN; th = ti + T_HOLD; tend = th + T_OUT
+    t0 = li * per + (OVERLAP if li == 0 else 0); ti = t0 + T_IN; th = ti + T_HOLD; tend = min(total, th + T_OUT)
     step_in, step_out = T_IN / STAGES, T_OUT / STAGES
     for si in range(STAGES + 1):
         p = 1 - si / STAGES                         # 1 = nic, 0 = celé logo
@@ -72,8 +73,9 @@ for li, (slug, name, hexc) in enumerate(LOGOS):
 A, K, M, T = '#ff5a4a', '#7dd3fc', '#8b8b95', '#f4f4f5'
 info = [('k', 'Škola', 'SOŠ EDUCAnet Brno · IT, 4. ročník'), ('k', 'Město', 'Brno'), ('k', 'OS', 'Arch Linux'), ('s',),
         ('k', 'Frontend', 'HTML · CSS · JavaScript · TypeScript · React'), ('k', 'Backend', 'Node.js · PHP · Laravel · MySQL · C#'),
-        ('k', 'Web', 'WordPress · Tailwind · Vite'), ('k', 'AI', 'Claude Code · Codex · Ollama'), ('k', 'Video', 'Remotion · ffmpeg'), ('s',),
-        ('k', 'Dělám', 'Elaris, harness pro LLM agenty'), ('k', 'Klienti', 'Tři Mistři · Wash&amp;Wrap · OKRiders'), ('k', 'Mail', 'romanek8888@email.cz')]
+        ('k', 'Web', 'WordPress · Tailwind · Vite'), ('k', 'AI', 'Claude Code · Codex · Ollama · ROCm'), ('s',),
+        ('k', 'Projekty', 'Elaris (maturita) · video-system'), ('k', 'Weby', 'Tři Mistři · Wash&amp;Wrap · OKRiders'),
+        ('k', 'Mail', 'romanek8888@email.cz')]
 IX, iy = 560, 84
 out = [f'<text x="{IX}" y="{iy}" font-size="21" font-weight="700"><tspan fill="{A}">roman</tspan><tspan fill="{T}">@</tspan><tspan fill="{A}">kaco</tspan></text>',
        f'<text x="{IX}" y="{iy + 16}" fill="#3f3f46" font-size="15">{"─" * 38}</text>']
